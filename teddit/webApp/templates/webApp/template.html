@@ -1,0 +1,88 @@
+{% load static tailwind_tags %}
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+    <title>{% block title %}Teddit{% endblock %}</title>
+    {% tailwind_css %}
+</head>
+<body>
+    <header>
+        <a href="#">Teddit</a>
+
+        <form method="get" action="#">
+            <input type="search" name="q" placeholder="Buscar no Teddit">
+        </form>
+
+        <nav>
+            {% if user.is_authenticated %}
+                <a href="#">Criar</a>
+                <a href="#">Notificações</a>
+                <a href="#">{{ user.username }}</a>
+            {% else %}
+                <a href="#">Entrar</a>
+                <a href="#">Cadastrar</a>
+            {% endif %}
+        </nav>
+    </header>
+
+    <div>
+
+        {% block sidebar_left %}
+        <aside>
+            <nav>
+                <ul>
+                    <li><a href="#">Início</a></li>
+                    <li><a href="#">Popular</a></li>
+                    <li><a href="#">Explorar</a></li>
+                    <li><a href="#">Todos</a></li>
+                </ul>
+            </nav>
+
+            <section>
+                <h2>Comunidades</h2>
+                <ul>
+                    {% for community in my_communities %}
+                        <li><a href="#">t/{{ community.name }}</a></li>
+                    {% empty %}
+                        <li>Você ainda não participa de nenhuma comunidade.</li>
+                    {% endfor %}
+                </ul>
+            </section>
+        </aside>
+        {% endblock %}
+
+        <main>
+            {% block content %}{% endblock %}
+        </main>
+
+        {% block sidebar_right %}
+        <aside>
+            <section>
+                <h2>Comunidades populares</h2>
+                <ol>
+                    {% for community in popular_communities %}
+                        <li>
+                            <a href="#">t/{{ community.name }}</a>
+                            <span>{{ community.members_count }} membros</span>
+                        </li>
+                    {% empty %}
+                        <li>Nada em destaque.</li>
+                    {% endfor %}
+                </ol>
+            </section>
+
+            <footer>
+                <a href="#">Sobre</a>
+                <a href="#">Regras</a>
+                <a href="#">Privacidade</a>
+                <a href="#">Termos</a>
+            </footer>
+        </aside>
+        {% endblock %}
+
+    </div>
+
+    {% block extra_body %}{% endblock %}
+
+</body>
+</html>

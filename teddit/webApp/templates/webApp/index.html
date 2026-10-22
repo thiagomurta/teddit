@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+
+{% block title %}Início · Teddit{% endblock %}
+
+{% block content %}
+
+<section>
+    <a href="#">Criar publicação</a>
+</section>
+
+<nav>
+    <a href="#">Melhores</a>
+    <a href="#">Em alta</a>
+    <a href="#">Novos</a>
+    <a href="#">Top</a>
+</nav>
+
+{% for post in posts %}
+<article>
+
+    <div>
+        <button type="button" aria-label="Voto positivo">▲</button>
+        <span>{{ post.score }}</span>
+        <button type="button" aria-label="Voto negativo">▼</button>
+    </div>
+
+    <div>
+        <p>
+            <a href="#">t/{{ post.community.name }}</a>
+            · Postado por <a href="#">u/{{ post.author.username }}</a>
+            · {{ post.created_at|timesince }} atrás
+        </p>
+
+        <h2><a href="#">{{ post.title }}</a></h2>
+
+        {% if post.body %}
+            <p>{{ post.body|truncatewords:50 }}</p>
+        {% endif %}
+
+        {% if post.image %}
+            <img src="{{ post.image.url }}" alt="{{ post.title }}">
+        {% endif %}
+
+        <footer>
+            <a href="#">{{ post.comments_count }} comentários</a>
+            <button type="button">Compartilhar</button>
+            <button type="button">Salvar</button>
+        </footer>
+    </div>
+
+</article>
+{% empty %}
+<p>Nenhuma publicação por aqui ainda.</p>
+{% endfor %}
+
+{% endblock %}

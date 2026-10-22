@@ -29,3 +29,7 @@ class Comment(models.Model):
     comment = models.CharField(max_length=280)
     created_at = models.DateTimeField(auto_now_add=True)
 
+class Community(models.Model):
+    name = models.CharField(max_length=40)
+    participant = models.ManyToManyField(User, blank=True, related_name="participants")
+
