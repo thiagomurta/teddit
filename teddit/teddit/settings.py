@@ -37,7 +37,15 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'webApp'
+    'webApp',
+    'tailwind',
+    'theme',
+]
+
+TAILWIND_APP_NAME = 'theme' # nome do tema que escolhi no momento da instalação do tailwind
+
+INTERNAL_IPS = [
+        '127.0.0.1', # link padrão da aplicação tailwind
 ]
 
 MIDDLEWARE = [
@@ -75,8 +83,12 @@ WSGI_APPLICATION = 'teddit.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': "postgres", # nome do banco de dados, (docker-compose)
+        'USER': "postgres", # nome do usuário, (docker-compose)
+        'PASSWORD': "postgres", # senha, (docker-compose)
+        'HOST': "localhost", # nome do serviço (docker-compose) / "localhost" se estiver rodando localmente
+        'PORT': "5432", # Porta padrão do PostgreSQL
     }
 }
 

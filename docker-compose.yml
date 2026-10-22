@@ -1,0 +1,14 @@
+services:
+  db:
+    container_name: db-teddit
+    image: postgres:16-alpine
+    volumes:
+      - db_python:/var/lib/postgresql/data
+    environment:
+      POSTGRES_DB: ${DB_NAME:-postgres}
+      POSTGRES_USER: ${DB_USER:-postgres}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+    ports:
+      - "${DB_PORT:-5432}:5432"
+volumes:
+  db_python:
