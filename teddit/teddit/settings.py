@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/6.1/ref/settings/
 """
 
+import os
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -84,11 +85,11 @@ WSGI_APPLICATION = 'teddit.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': "postgres", # nome do banco de dados, (docker-compose)
-        'USER': "postgres", # nome do usuário, (docker-compose)
-        'PASSWORD': "postgres", # senha, (docker-compose)
-        'HOST': "localhost", # nome do serviço (docker-compose) / "localhost" se estiver rodando localmente
-        'PORT': "5432", # Porta padrão do PostgreSQL
+        'NAME': os.getenv("POSTGRES_DB", "postgres"), # nome do banco de dados, (docker-compose)
+        'USER': os.getenv("POSTGRES_USER","postgres"), # nome do usuário, (docker-compose)
+        'PASSWORD': os.getenv("POSTGRES_PASSWORD","postgres"), # senha, (docker-compose)
+        'HOST': os.getenv("POSTGRES_HOST","localhost"), # nome do serviço (docker-compose) / "localhost" se estiver rodando localmente
+        'PORT': os.getenv("POSTGRES_PORT","5432"), # Porta padrão do PostgreSQL
     }
 }
 
