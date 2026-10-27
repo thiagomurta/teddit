@@ -1,4 +1,21 @@
 services:
+  django:
+    container_name: django
+    build:
+      - context: ./myApp
+      - network: host
+    ports:
+      - 8000:8000
+    volumes:
+      - ./teddit:/usr/src/app
+    environment:
+      DB_HOST: db
+      POSTGRES_DB: postgres
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    depends-on:
+      - db
+
   db:
     container_name: db-teddit
     image: postgres:16-alpine
